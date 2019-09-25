@@ -6,6 +6,34 @@ var app = new Vue({
         image: './assets/socks.png',
         click: 'http://127.0.0.1:5500/index.html',
         inven: 0,
-        onSale: true
+        details: [
+            '80% Cotten',
+            '20% polyester',
+            'Not Gender Neutral'
+        ],
+        variants: [
+            {
+                id: 2234,
+                color: 'green'
+            },
+            {
+                id: 2235,
+                color: 'blue'
+            }
+        ],
+        sizes: [
+            'small',
+            'medium',
+            'large',
+            'Extra Large',
+            'Extra extra Large'
+        ],
+        onSale: true,
+        cart: 0,
+    },
+    methods: {
+        addToCart() {
+            this.cart++;
+        }
     }
 });
