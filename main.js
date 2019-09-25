@@ -30,10 +30,35 @@ var app = new Vue({
         ],
         onSale: true,
         cart: 0,
+        interval: null,
+        spinButton: 'red',
+        stopButton: ''
     },
     methods: {
         addToCart() {
             this.cart++;
+        },
+        rotateImg(){
+            this.spinButton = '';
+            this.stopButton = 'red';
+            clearInterval(this.interval);
+            var self = this;
+             this.interval = setInterval(function(){
+                let img = self.$refs.img;
+                let degree = parseInt(img.getAttribute('class').substring(6));
+                if (degree === 360) {
+                    degree = 90;
+                    img.setAttribute('class', `rotate${degree}`);
+                } else {
+                    degree += 90;
+                    img.setAttribute('class', `rotate${degree}`);
+                }
+            }, 500);
+        },
+        stopRotate(){
+            clearInterval(this.interval);
+            this.spinButton = 'red';
+            this.stopButton = '';
         }
     }
 });

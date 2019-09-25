@@ -18,7 +18,9 @@
     <div id="app">
         <div class="product">
             <div class="product-image">
-                <img v-bind:src="image" alt="No image yet">
+                <img ref="img" class="rotate0" v-bind:src="image" alt="No image yet">
+                <button v-bind:class="spinButton" v-on:click="rotateImg">Spin</button>
+                <button v-bind:class="stopButton" v-on:click="stopRotate">Stop</button>
             </div>
             <div class="product-info">
                 <h2>{{ product }}</h2>
