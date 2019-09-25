@@ -1,3 +1,4 @@
+// Vue.config.productionTip = false;
 var app = new Vue({
     el: '#app',
     data: {
@@ -14,11 +15,13 @@ var app = new Vue({
         variants: [
             {
                 id: 2234,
-                color: 'green'
+                color: 'green',
+                image: './assets/socks-green.jpg'
             },
             {
                 id: 2235,
-                color: 'blue'
+                color: 'blue',
+                image: './assets/socks-blue.jpg'
             }
         ],
         sizes: [
