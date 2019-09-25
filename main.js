@@ -1,45 +1,50 @@
-// Vue.config.productionTip = false;
+Vue.config.productionTip = false;
 var app = new Vue({
     el: '#app',
     data: {
         product: 'Socks',
         des: 'These are good socks for winter',
-        image: './assets/socks.png',
+        image: './assets/socks-green.jpg',
         click: 'http://127.0.0.1:5500/index.html',
-        inven: 0,
+        inven: 20,
         details: [
             '80% Cotten',
-            '20% polyester',
+            '20% Polyester',
             'Not Gender Neutral'
         ],
         variants: [
             {
                 id: 2234,
-                color: 'green',
+                color: 'Green',
                 image: './assets/socks-green.jpg'
             },
             {
                 id: 2235,
-                color: 'blue',
+                color: 'Blue',
                 image: './assets/socks-blue.jpg'
             }
         ],
         sizes: [
-            'small',
-            'medium',
-            'large',
+            'Small',
+            'Medium',
+            'Large',
             'Extra Large',
-            'Extra extra Large'
+            'Extra Extra Large'
         ],
         onSale: true,
         cart: 0,
         interval: null,
         spinButton: 'red',
-        stopButton: ''
+        stopButton: 'disabledButton'
     },
     methods: {
         addToCart() {
             this.cart++;
+        },
+        removeFromCart(){
+            if(this.cart > 0){
+                this.cart--;
+            }
         },
         rotateImg(){
             this.spinButton = '';
@@ -61,7 +66,10 @@ var app = new Vue({
         stopRotate(){
             clearInterval(this.interval);
             this.spinButton = 'red';
-            this.stopButton = '';
-        }
+            this.stopButton = 'disabledButton';
+        },
+        updateProduct(image){
+            this.image = image;
+        },
     }
 });
