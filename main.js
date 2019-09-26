@@ -1,5 +1,15 @@
 Vue.config.productionTip = false;
 Vue.component('product', {
+    props: {
+        premium: {
+            type: Boolean,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        }
+    },
     template: `
         <div class="product">
             <div class="product-image">
@@ -17,6 +27,8 @@ Vue.component('product', {
                 <p v-else>Out of Stock</p> -->
                 <p v-if="sale">On Sale</p>
                 <p v-else>Sale will start soon</p>
+                <p v-if="premium">{{ name }} is our <strong class="text-red">Premium</strong> user</p>
+                <p v-else>Regular User</p>
 
 
                 <h4 class="h4">Details</h4>
@@ -154,7 +166,7 @@ Vue.component('product', {
                     degree += 90;
                     img.setAttribute('class', `rotate${degree}`);
                 }
-            }, 500);
+            }, 1000);
         },
         stopRotate() {
             clearInterval(this.interval);
@@ -174,5 +186,9 @@ Vue.component('product', {
 });
 
 var app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        premium: true,
+        name: 'Ali'
+    }
 });

@@ -43,7 +43,8 @@ img {
 }
 
 .buttons {
-  margin-left: 130px;
+  /* margin-left: 130px; */
+  /* float: left; */
 }
 
 .product-info {
