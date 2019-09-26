@@ -16,47 +16,7 @@
         <h1 class="center">Vue Mastery</h1>
     </div>
     <div id="app">
-        <div class="product">
-            <div class="product-image">
-                <img ref="img" class="rotate0" v-bind:src="image" alt="No image yet">
-                <div class="buttons">
-                    <button v-bind:class="spinButton" v-on:click="rotateImg()">Spin</button>
-                    <button v-bind:class="stopButton" v-on:click="stopRotate()">Stop</button>
-                </div>
-            </div>
-            
-            <div class="product-info">
-                <h2>{{ product }}</h2>
-                <p v-if="inven > 10">In Stock</p>
-                <p v-else-if="inven <= 10 && inven > 0">Almost Sold Out</p>
-                <p v-else>Out of Stock</p>
-                <p v-if="onSale">On Sale!</p>
-
-                <h4 class="h4">Details</h4>
-                <ul class="small-list">
-                    <li class="green" v-for="detail in details">{{ detail }}</li>
-                </ul>
-
-                <h4 class="h4">Avaible Sizes</h4>
-                <ul class="small-list">
-                    <li class="green" v-for="size in sizes">{{ size }}</li>
-                </ul>
-
-                <div v-for="variant in variants" :key="variant.id">
-                    <p @mouseover="updateProduct(variant.image)"><strong>{{ variant.color }}</strong></p>
-                </div>
-
-                <div class="cart-buttons">
-                    <!-- v-on:click and @click are the same -->
-                    <button v-on:click="addToCart">Add to Cart</button>
-                    <br>
-                    <button class="red" @click="removeFromCart">Remove from Cart</button>
-                    <div class="cart">
-                        <p class="text-red"><strong>Cart({{ cart }})</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <product></product>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
