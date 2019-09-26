@@ -1,4 +1,20 @@
 Vue.config.productionTip = false;
+Vue.component('product-details', {
+    props: {
+        details: {
+            type: Array,
+            required: true
+        }
+    },
+    template: `
+        <div>
+            <h4 class="h4">Details</h4>
+            <ul class="small-list">
+                <li class="green" v-for="detail in details">{{ detail }}</li>
+            </ul>
+        </div>
+    `
+});
 Vue.component('product', {
     props: {
         premium: {
@@ -27,14 +43,9 @@ Vue.component('product', {
                 <p v-else>Out of Stock</p> -->
                 <p v-if="sale">On Sale</p>
                 <p v-else>Sale will start soon</p>
-                <p v-if="premium">{{ name }} is our <strong class="text-red">Premium</strong> user</p>
-                <p v-else>Regular User</p>
+                <p>Shipping: {{ shipping }}</p>
 
-
-                <h4 class="h4">Details</h4>
-                <ul class="small-list">
-                    <li class="green" v-for="detail in details">{{ detail }}</li>
-                </ul>
+                <product-details :details="details"></product-details>
 
                 <h4 class="h4">Avaible Sizes</h4>
                 <ul class="small-list">
@@ -136,6 +147,9 @@ Vue.component('product', {
         },
         productOnSale() {
             return this.onSale ? this.title : '';
+        },
+        shipping() {
+            return this.premium ? 'Free' : 2.99;
         }
     },
     methods: {
