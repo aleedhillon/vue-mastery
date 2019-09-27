@@ -234,7 +234,7 @@ var app = new Vue({
         },
         removeFromCart(id) {
             let index = this.cart.indexOf(id);
-            if (index >= 0) {
+            if (this.cart[index] === id) {
                 this.cart.splice(index, 1);
             }
         }
