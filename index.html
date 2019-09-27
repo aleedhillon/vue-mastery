@@ -20,7 +20,6 @@
             <p class="text-red"><strong>Cart({{ cart.length }})</strong></p>
         </div>
         <product :premium="premium"
-                 :name="name"
                  :cart="cart"
                  v-on:add-to-cart="addToCart"
                 @remove-from-cart="removeFromCart"
