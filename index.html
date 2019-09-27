@@ -16,7 +16,15 @@
         <h1 class="center">Vue Mastery</h1>
     </div>
     <div id="app">
-        <product :premium="premium" :name="name"></product>
+        <div class="cart">
+            <p class="text-red"><strong>Cart({{ cart.length }})</strong></p>
+        </div>
+        <product :premium="premium"
+                 :name="name"
+                 :cart="cart"
+                 v-on:add-to-cart="addToCart"
+                @remove-from-cart="removeFromCart"
+        ></product>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

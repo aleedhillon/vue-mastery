@@ -1,8 +1,28 @@
 Vue.config.productionTip = false;
+Vue.component('product-sizes', {
+    props : {
+        sizes : {
+            type: Array,
+            required: true
+        }
+    },
+    template: `
+        <div>
+            <h4 class="h4">Avaible Sizes</h4>
+            <ul class="small-list">
+                <li class="green" v-for="size in sizes">{{ size }}</li>
+            </ul>
+        </div>
+    `
+});
 Vue.component('product-details', {
     props: {
         details: {
             type: Array,
+            required: true
+        },
+        something: {
+            type: String,
             required: true
         }
     },
@@ -12,6 +32,7 @@ Vue.component('product-details', {
             <ul class="small-list">
                 <li class="green" v-for="detail in details">{{ detail }}</li>
             </ul>
+            <p>Something: {{ something }}</p>
         </div>
     `
 });
@@ -23,6 +44,10 @@ Vue.component('product', {
         },
         name: {
             type: String,
+            required: true
+        },
+        cart: {
+            type: Array,
             required: true
         }
     },
@@ -45,12 +70,9 @@ Vue.component('product', {
                 <p v-else>Sale will start soon</p>
                 <p>Shipping: {{ shipping }}</p>
 
-                <product-details :details="details"></product-details>
+                <product-details :details="details" :something="'This is that something'"></product-details>
 
-                <h4 class="h4">Avaible Sizes</h4>
-                <ul class="small-list">
-                    <li class="green" v-for="size in sizes">{{ size }}</li>
-                </ul>
+                <product-sizes :sizes="sizes"></product-sizes>
 
                 <div v-for="(variant, index) in variants"
                      :key="variant.id"
@@ -71,9 +93,6 @@ Vue.component('product', {
                     </button>
                     <br>
                     <button class="red" @click="removeFromCart">Remove from Cart</button>
-                    <div class="cart">
-                        <p class="text-red"><strong>Cart({{ cart }})</strong></p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -94,14 +113,16 @@ Vue.component('product', {
                     color: 'green',
                     image: './assets/socks-green.jpg',
                     quantity: 10,
-                    onSale: true
+                    onSale: true,
+                    addedToCart: 0
                 },
                 {
                     id: 2235,
                     color: 'blue',
                     image: './assets/socks-blue.jpg',
-                    quantity: 0,
-                    onSale: true
+                    quantity: 5,
+                    onSale: true,
+                    addedToCart: 0
                 }
             ],
             sizes: [
@@ -111,7 +132,6 @@ Vue.component('product', {
                 'Extra Large',
                 'Extra Extra Large'
             ],
-            cart: 0,
             interval: null,
             spinButton: 'red',
             stopButton: 'disabledButton',
@@ -155,13 +175,15 @@ Vue.component('product', {
     methods: {
         addToCart() {
             if (this.inStock) {
-                this.cart++;
+                this.$emit('add-to-cart', this.currentVariant.id);
+                this.variants[this.selectedVariant].addedToCart++;
                 this.variants[this.selectedVariant].quantity--;
             }
         },
         removeFromCart() {
-            if (this.cart > 0) {
-                this.cart--;
+            if (this.cart.length > 0 && this.currentVariant.addedToCart > 0) {
+                this.$emit('remove-from-cart', this.currentVariant.id);
+                this.variants[this.selectedVariant].addedToCart--;
                 this.variants[this.selectedVariant].quantity++;
             }
         },
@@ -203,6 +225,20 @@ var app = new Vue({
     el: '#app',
     data: {
         premium: true,
-        name: 'Ali'
+        name: 'Ali',
+        cart: []
+    },
+    methods: {
+        addToCart(id) {
+            this.cart.push(id);
+        },
+        removeFromCart(id) {
+            let index = this.cart.indexOf(id);
+            console.log('Index is:' + index);
+            if (index >= 0) {
+                this.cart.splice(index, 1);
+                console.log('item removed');
+            }
+        }
     }
 });
