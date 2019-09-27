@@ -234,10 +234,8 @@ var app = new Vue({
         },
         removeFromCart(id) {
             let index = this.cart.indexOf(id);
-            console.log('Index is:' + index);
             if (index >= 0) {
                 this.cart.splice(index, 1);
-                console.log('item removed');
             }
         }
     }
